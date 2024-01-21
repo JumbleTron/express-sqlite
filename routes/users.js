@@ -9,14 +9,15 @@ router.get('/', async function (req, res, next) {
     db.all("SELECT rowid AS id, info FROM lorem", function (err, rows) {
       if (err) return reject(err);
       rows.forEach(function (row) {
-        list.push({id: row.id});
-        resolve(list);
+        list.push({id: row.id, title: row.info});
       });
+      resolve(list);
     })
   })
   
   res.end(JSON.stringify(data))
 });
+
 router.post('/', function(req, res, next) {
   res.end(JSON.stringify({'msg': "Hello from users"}))
 });
